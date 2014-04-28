@@ -1,0 +1,7 @@
+
+appcompat_v7/*
+.metadata/*
+FinalProject/bin/*
+FinalProject/gen/*
+FinalProject/project.properties
+FinalProject/proguard-project.txt
