@@ -1,7 +1,5 @@
 package com.example.finalproject;
 
-import java.util.ArrayList;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;

@@ -6,11 +6,39 @@
         <item>Medium</item>
         <item>Hard</item>
     </string-array>
-    
     <string-array name="gameTypes">
         <item>Movies</item>
         <item>Math</item>
         <item>State Capitals</item>
     </string-array>
-    
+    <string-array name="stateCapitalQuestions">
+        <item>What is the capital of Louisiana?</item>
+        <item>What is the capital of Texas?</item>
+        <item>What is the capital of Mississippi?</item>
+    </string-array>
+    <string-array name="answers0">
+        <item>Shreveport</item>
+        <item>Baton Rouge</item>
+        <item>New Orleans</item>
+        <item>Lafayette</item>
+    </string-array>
+    <string-array name="answers1">
+        <item>Dallas</item>
+        <item>San Antonio</item>
+        <item>Austin</item>
+        <item>Houston</item>
+    </string-array>
+    <string-array name="answers2">
+        <item>Tupelo</item>
+        <item>Jackson</item>
+        <item>Vicksburg</item>
+        <item>Oxford</item>
+    </string-array>
+
+    <array name="stateCapitalAnswers">
+        <item>@array/answers0</item>
+        <item>@array/answers1</item>
+        <item>@array/answers2</item>
+    </array>
+
 </resources>
