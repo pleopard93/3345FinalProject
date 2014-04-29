@@ -1,15 +1,27 @@
 package com.example.finalproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class GameActivity extends ActionBarActivity {
+	
+	String[] gameDataArray;
+	public static final String GAME_KEY = "GameKey";
+	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        
+        Intent i = getIntent();
+		gameDataArray = i.getStringArrayExtra(GAME_KEY);
+		
+		Log.d("PBL", "Difficulty: " + gameDataArray[0]);
+		Log.d("PBL", "Game Type:  " + gameDataArray[1]);
     }
 
     @Override

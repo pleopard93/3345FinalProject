@@ -1,9 +1,10 @@
 package com.example.finalproject;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ public class MainActivity extends ActionBarActivity {
 
 	private String[] difficultiesArray;
 	private String[] gameTypesArray;
+	private String[] gameDataArray;
 
 	private Spinner mDifficultySpinner;
 	private Spinner mGameTypeSpinner;
@@ -30,7 +32,7 @@ public class MainActivity extends ActionBarActivity {
         // Retrieve the difficulty types
         difficultiesArray = getResources().getStringArray(R.array.difficulties);
 
-        // Retrieve the game tyoes
+        // Retrieve the game types
         gameTypesArray = getResources().getStringArray(R.array.gameTypes);
         
         // Spinners that contains the different difficulties and game types
@@ -39,6 +41,8 @@ public class MainActivity extends ActionBarActivity {
      	
      	// Button to launch game
      	mGoButton = (Button) findViewById(R.id.goButton);
+     	
+     	gameDataArray = new String[2];
      	
      	setSpinners();
      	setGoButton();
@@ -67,7 +71,7 @@ public class MainActivity extends ActionBarActivity {
     
     private void launchGame() {
 		Intent i = new Intent(this, GameActivity.class);
-		//i.putIntegerArrayListExtra(Toppings.TOPPING_KEY, mSavedToppings);
+		i.putExtra(GameActivity.GAME_KEY, gameDataArray);
 		startActivityForResult(i, 0);
 	}
     
@@ -86,7 +90,7 @@ public class MainActivity extends ActionBarActivity {
 
 		mDifficultySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				Log.d("PBL", "Selected: "+ difficultiesArray[pos]);
+				gameDataArray[0] = difficultiesArray[pos];
 			}
 
 			public void onNothingSelected(AdapterView<?> parent) {
@@ -95,7 +99,7 @@ public class MainActivity extends ActionBarActivity {
 		
 		mGameTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				Log.d("PBL", "Selected: "+ gameTypesArray[pos]);
+				gameDataArray[1] = gameTypesArray[pos];
 			}
 
 			public void onNothingSelected(AdapterView<?> parent) {
