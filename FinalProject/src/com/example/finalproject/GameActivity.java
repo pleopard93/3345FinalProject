@@ -23,7 +23,14 @@ public class GameActivity extends ActionBarActivity {
 	private RadioButton mRadio2;
 	private RadioButton mRadio3;
 	private RadioButton mRadio4;
-	private TextView mTextView;
+	private TextView mQuestionTextView;
+	private TextView mMultiplierTextView;
+	private TextView mScoreTextView;
+	private TextView mStreakTextView;
+	private int questionIndex;
+	private int score;
+	private int multiplier;
+	private int streak;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +40,24 @@ public class GameActivity extends ActionBarActivity {
 		Intent i = getIntent();
 		gameDataArray = i.getStringArrayExtra(GAME_KEY);
 
-		Log.d("PBL", "Difficulty: " + gameDataArray[0]);
-		Log.d("PBL", "Game Type:  " + gameDataArray[1]);
-
 		mRadio1 = (RadioButton) findViewById(R.id.radioButton1);
 		mRadio2 = (RadioButton) findViewById(R.id.radioButton2);
 		mRadio3 = (RadioButton) findViewById(R.id.radioButton3);
 		mRadio4 = (RadioButton) findViewById(R.id.radioButton4);
 
-		mTextView = (TextView) findViewById(R.id.questionTextView);
+		mQuestionTextView = (TextView) findViewById(R.id.questionTextView);
+		mMultiplierTextView = (TextView) findViewById(R.id.multiplierTextView);
+		mScoreTextView = (TextView) findViewById(R.id.scoreTextView);
+		mStreakTextView = (TextView) findViewById(R.id.streakTextView);
 
 		getQuestionResources();
-
-		setNewQuestion(0);
+		
+		questionIndex = 0;
+		score = 0;
+		multiplier = 1;
+		streak = 0;
+		
+		setNewQuestion();
 	}
 
 	@Override
@@ -84,15 +96,16 @@ public class GameActivity extends ActionBarActivity {
 		ta.recycle();
 	}
 
-	private void setNewQuestion(int questionNumber) {
-		if (questionNumber < answersArray.length) {
-			setTextView(questionNumber);
-			setRadioButtons(questionNumber);
+	private void setNewQuestion() {
+		if (questionIndex < answersArray.length) {
+			setTextView(questionIndex);
+			setRadioButtons(questionIndex);
+			questionIndex++;
 		}
 	}
 
 	private void setTextView(int questionNumber) {
-		mTextView.setText(questionsArray[questionNumber]);
+		mQuestionTextView.setText(questionsArray[questionNumber]);
 	}
 
 	private void setRadioButtons(final int questionNumber) {
@@ -102,12 +115,9 @@ public class GameActivity extends ActionBarActivity {
 		mRadio3.setText(answersArray[questionNumber][2]);
 		mRadio4.setText(answersArray[questionNumber][3]);
 
-		final int newQuestion = questionNumber + 1;
-
 		mRadio1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				setNewQuestion(newQuestion);
 				mRadio1.setChecked(false);
 				checkAnswer(Integer.parseInt(answersArray[questionNumber][4]), 0);
 			}
@@ -116,7 +126,6 @@ public class GameActivity extends ActionBarActivity {
 		mRadio2.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				setNewQuestion(newQuestion);
 				mRadio2.setChecked(false);
 				checkAnswer(Integer.parseInt(answersArray[questionNumber][4]), 1);
 			}
@@ -125,7 +134,6 @@ public class GameActivity extends ActionBarActivity {
 		mRadio3.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				setNewQuestion(newQuestion);
 				mRadio3.setChecked(false);
 				checkAnswer(Integer.parseInt(answersArray[questionNumber][4]), 2);
 			}
@@ -134,7 +142,6 @@ public class GameActivity extends ActionBarActivity {
 		mRadio4.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				setNewQuestion(newQuestion);
 				mRadio4.setChecked(false);
 				checkAnswer(Integer.parseInt(answersArray[questionNumber][4]), 3);
 			}
@@ -143,9 +150,19 @@ public class GameActivity extends ActionBarActivity {
 	
 	private void checkAnswer(int correctAnswer, int selectedAnswer) {
 		if (selectedAnswer == correctAnswer) {
-			Log.d("PBL", "Correct");
+			score += multiplier*5;
+			streak++;
+			multiplier++;
+			Log.d("PBL", "Score: " + Integer.toString(score));
+			mScoreTextView.setText(Integer.toString(score));
+			mMultiplierTextView.setText("x"+Integer.toString(multiplier));
+			mStreakTextView.setText(Integer.toString(streak));
+			setNewQuestion();
 		} else {
-			Log.d("PBL", "Incorrect");
+			multiplier = 1;
+			streak = 0;
+			mMultiplierTextView.setText("x"+Integer.toString(multiplier));
+			mStreakTextView.setText(Integer.toString(streak));
 		}
 	}
 }

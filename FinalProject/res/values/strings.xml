@@ -7,5 +7,11 @@
     <string name="difficulty">Difficulty</string>
     <string name="gameType">Game Type</string>
     <string name="go">Go!</string>
+    <string name="score">Score</string>
+    <string name="multiplier">Multiplier</string>
+    <string name="streak">Streak</string>
+    <string name="startScore">0</string>
+    <string name="startMultiplier">x1</string>
+    <string name="startStreak">0</string>
 
 </resources>

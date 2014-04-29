@@ -48,4 +48,59 @@
             android:text="Answer4" />
     </RadioGroup>
 
+    <TextView
+        android:id="@+id/multiplierLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radioAnswers"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="25dp"
+        android:layout_alignParentLeft="true"
+        android:text="@string/multiplier" />
+
+    <TextView
+        android:id="@+id/multiplierTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/multiplierLabel"
+        android:layout_below="@id/multiplierLabel"
+        android:layout_marginTop="16dp"
+        android:text="@string/startMultiplier" />
+
+    <TextView
+        android:id="@+id/scoreLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/multiplierLabel"
+        android:layout_toRightOf="@id/multiplierLabel"
+        android:layout_marginLeft="40dp"
+        android:text="@string/score" />
+    
+    <TextView
+        android:id="@+id/scoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/scoreLabel"
+        android:layout_below="@id/scoreLabel"
+        android:layout_alignBaseline="@id/multiplierTextView"
+        android:layout_marginTop="16dp"
+        android:text="@string/startScore" />
+    
+    <TextView
+        android:id="@+id/streakLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/scoreLabel"
+        android:layout_toRightOf="@id/scoreLabel"
+        android:layout_marginLeft="40dp"
+        android:text="@string/streak" />
+
+    <TextView
+        android:id="@+id/streakTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/multiplierTextView"
+        android:layout_alignLeft="@id/streakLabel"
+        android:text="@string/startStreak" />
+
 </RelativeLayout>
