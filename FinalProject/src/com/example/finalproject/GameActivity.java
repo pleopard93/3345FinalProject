@@ -109,6 +109,7 @@ public class GameActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				setNewQuestion(newQuestion);
 				mRadio1.setChecked(false);
+				checkAnswer(Integer.parseInt(answersArray[questionNumber][4]), 0);
 			}
 		});
 
@@ -117,6 +118,7 @@ public class GameActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				setNewQuestion(newQuestion);
 				mRadio2.setChecked(false);
+				checkAnswer(Integer.parseInt(answersArray[questionNumber][4]), 1);
 			}
 		});
 
@@ -125,6 +127,7 @@ public class GameActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				setNewQuestion(newQuestion);
 				mRadio3.setChecked(false);
+				checkAnswer(Integer.parseInt(answersArray[questionNumber][4]), 2);
 			}
 		});
 
@@ -133,7 +136,16 @@ public class GameActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				setNewQuestion(newQuestion);
 				mRadio4.setChecked(false);
+				checkAnswer(Integer.parseInt(answersArray[questionNumber][4]), 3);
 			}
 		});
+	}
+	
+	private void checkAnswer(int correctAnswer, int selectedAnswer) {
+		if (selectedAnswer == correctAnswer) {
+			Log.d("PBL", "Correct");
+		} else {
+			Log.d("PBL", "Incorrect");
+		}
 	}
 }

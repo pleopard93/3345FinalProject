@@ -21,18 +21,21 @@
         <item>Baton Rouge</item>
         <item>New Orleans</item>
         <item>Lafayette</item>
+        <item>1</item>
     </string-array>
     <string-array name="answers1">
         <item>Dallas</item>
         <item>San Antonio</item>
         <item>Austin</item>
         <item>Houston</item>
+        <item>2</item>
     </string-array>
     <string-array name="answers2">
         <item>Tupelo</item>
         <item>Jackson</item>
         <item>Vicksburg</item>
         <item>Oxford</item>
+        <item>1</item>
     </string-array>
 
     <array name="stateCapitalAnswers">
