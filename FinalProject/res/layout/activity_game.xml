@@ -24,25 +24,25 @@
         android:orientation="vertical" >
 
         <RadioButton
-            android:id="@+id/radioButton1"
+            android:id="@+id/radioButton0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Answer1" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/radioButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Answer2" />
-        
-                <RadioButton
-            android:id="@+id/radioButton3"
+
+        <RadioButton
+            android:id="@+id/radioButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Answer 3" />
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/radioButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Answer4" />
@@ -52,10 +52,10 @@
         android:id="@+id/multiplierLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/radioAnswers"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="25dp"
         android:layout_alignParentLeft="true"
+        android:layout_below="@id/radioAnswers"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="50dp"
         android:text="@string/multiplier" />
 
     <TextView
@@ -72,27 +72,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/multiplierLabel"
-        android:layout_toRightOf="@id/multiplierLabel"
         android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@id/multiplierLabel"
         android:text="@string/score" />
-    
+
     <TextView
         android:id="@+id/scoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/multiplierTextView"
         android:layout_alignLeft="@id/scoreLabel"
         android:layout_below="@id/scoreLabel"
-        android:layout_alignBaseline="@id/multiplierTextView"
         android:layout_marginTop="16dp"
         android:text="@string/startScore" />
-    
+
     <TextView
         android:id="@+id/streakLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/scoreLabel"
-        android:layout_toRightOf="@id/scoreLabel"
         android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@id/scoreLabel"
         android:text="@string/streak" />
 
     <TextView
