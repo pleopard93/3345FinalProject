@@ -45,7 +45,7 @@ public class GameActivity extends ActionBarActivity {
 
 	private static final int READ_TIMEOUT = 10000;
 	private static final int CONNECTION_TIMEOUT = 15000;
-	private static final String JSON_LOCATION = "http://129.119.157.190:8888/QuizApp/api/index.php/questions/1";
+	private static String JSON_LOCATION;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,8 @@ public class GameActivity extends ActionBarActivity {
 		Intent i = getIntent();
 		gameDataArray = i.getStringArrayExtra(GAME_KEY);
 
+		Log.d("PBL", gameDataArray[1]);
+		
 		mRadio0 = (RadioButton) findViewById(R.id.radioButton0);
 		mRadio1 = (RadioButton) findViewById(R.id.radioButton1);
 		mRadio2 = (RadioButton) findViewById(R.id.radioButton2);
@@ -69,6 +71,8 @@ public class GameActivity extends ActionBarActivity {
 		score = 0;
 		multiplier = 1;
 		streak = 0;
+		
+		JSON_LOCATION = "http://192.168.56.1:8888/QuizApp/api/index.php/questions/" + gameDataArray[1];
 
 		new HttpGetData().execute(null, null, null);
 	}
@@ -167,7 +171,7 @@ public class GameActivity extends ActionBarActivity {
 		}
 	}
 
-	public static class QuestionObject {
+	private static class QuestionObject {
 		String question;
 		String answer0;
 		String answer1;
