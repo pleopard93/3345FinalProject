@@ -64,8 +64,6 @@ public class GameActivity extends ActionBarActivity {
 		Intent i = getIntent();
 		gameDataArray = i.getStringArrayExtra(GAME_KEY);
 
-		Log.d("PBL", gameDataArray[1]);
-
 		mRadio0 = (RadioButton) findViewById(R.id.radioButton0);
 		mRadio1 = (RadioButton) findViewById(R.id.radioButton1);
 		mRadio2 = (RadioButton) findViewById(R.id.radioButton2);
@@ -115,7 +113,6 @@ public class GameActivity extends ActionBarActivity {
 	}
 
 	private void setNewQuestion() {
-		Log.d("PBL", Integer.toString(questionList.size()));
 		if (questionIndex < questionList.size()) {
 			setTextView(questionIndex);
 			setRadioButtons(questionIndex);
