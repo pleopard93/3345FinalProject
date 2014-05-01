@@ -6,49 +6,6 @@
     tools:context="com.example.finalproject.MainActivity"
     tools:ignore="MergeRootFrame" >
 
-    <TextView
-        android:id="@+id/questionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="62dp"
-        android:text="TextView"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <RadioGroup
-        android:id="@+id/radioAnswers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:orientation="vertical" >
-
-        <RadioButton
-            android:id="@+id/radioButton0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Answer1" />
-
-        <RadioButton
-            android:id="@+id/radioButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Answer2" />
-
-        <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Answer 3" />
-
-        <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Answer4" />
-    </RadioGroup>
-
     <LinearLayout
         android:id="@+id/pointsDisplay"
         android:layout_width="match_parent"
@@ -133,6 +90,73 @@
                 android:text="@string/startStreak"
                 android:textColor="@color/white" />
         </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/questionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pointsDisplay"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <LinearLayout
+        android:id="@+id/answers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/answer0"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@color/darkblue"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="Answer1"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/answer1"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@color/darkblue"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="Answer2"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/answer2"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@color/darkblue"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="Answer 3"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/answer3"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:background="@color/darkblue"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="Answer4"
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <RelativeLayout

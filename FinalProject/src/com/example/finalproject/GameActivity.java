@@ -21,10 +21,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,10 +34,10 @@ public class GameActivity extends ActionBarActivity {
 
 	String[] gameDataArray;
 	public static final String GAME_KEY = "GameKey";
-	private RadioButton mRadio0;
-	private RadioButton mRadio1;
-	private RadioButton mRadio2;
-	private RadioButton mRadio3;
+	private TextView mAnswerButton0;
+	private TextView mAnswerButton1;
+	private TextView mAnswerButton2;
+	private TextView mAnswerButton3;
 	private TextView mQuestionTextView;
 	private TextView mMultiplierTextView;
 	private TextView mScoreTextView;
@@ -64,17 +65,17 @@ public class GameActivity extends ActionBarActivity {
 		Intent i = getIntent();
 		gameDataArray = i.getStringArrayExtra(GAME_KEY);
 
-		mRadio0 = (RadioButton) findViewById(R.id.radioButton0);
-		mRadio1 = (RadioButton) findViewById(R.id.radioButton1);
-		mRadio2 = (RadioButton) findViewById(R.id.radioButton2);
-		mRadio3 = (RadioButton) findViewById(R.id.radioButton3);
+		mAnswerButton0 = (TextView) findViewById(R.id.answer0);
+		mAnswerButton1 = (TextView) findViewById(R.id.answer1);
+		mAnswerButton2 = (TextView) findViewById(R.id.answer2);
+		mAnswerButton3 = (TextView) findViewById(R.id.answer3);
 
 		mQuestionTextView = (TextView) findViewById(R.id.questionTextView);
 		mMultiplierTextView = (TextView) findViewById(R.id.multiplierTextView);
 		mScoreTextView = (TextView) findViewById(R.id.scoreTextView);
 		mStreakTextView = (TextView) findViewById(R.id.streakTextView);
 		mTimerBar = (ProgressBar) findViewById(R.id.timerBar);
-		
+
 		mMultiplierLayout = (RelativeLayout) findViewById(R.id.multiplier);
 		mScoreLayout = (RelativeLayout) findViewById(R.id.score);
 		mStreakLayout = (RelativeLayout) findViewById(R.id.streak);
@@ -115,7 +116,7 @@ public class GameActivity extends ActionBarActivity {
 	private void setNewQuestion() {
 		if (questionIndex < questionList.size()) {
 			setTextView(questionIndex);
-			setRadioButtons(questionIndex);
+			setAnswerButtons(questionIndex);
 			questionIndex++;
 		} else {
 			setGameOver();
@@ -126,46 +127,86 @@ public class GameActivity extends ActionBarActivity {
 		mQuestionTextView.setText(questionList.get(questionNumber).question);
 	}
 
-	private void setRadioButtons(final int questionNumber) {
+	private void setAnswerButtons(final int questionNumber) {
 		// Set the text and listeners for the radio buttons
-		mRadio0.setText(questionList.get(questionNumber).answer0);
-		mRadio1.setText(questionList.get(questionNumber).answer1);
-		mRadio2.setText(questionList.get(questionNumber).answer2);
-		mRadio3.setText(questionList.get(questionNumber).answer3);
+		mAnswerButton0.setText(questionList.get(questionNumber).answer0);
+		mAnswerButton1.setText(questionList.get(questionNumber).answer1);
+		mAnswerButton2.setText(questionList.get(questionNumber).answer2);
+		mAnswerButton3.setText(questionList.get(questionNumber).answer3);
 
-		mRadio0.setOnClickListener(new OnClickListener() {
+		mAnswerButton0.setOnTouchListener(new OnTouchListener() {
 			@Override
-			public void onClick(View v) {
-				mRadio0.setChecked(false);
-				checkAnswer(questionList.get(questionNumber).answer0,
-						questionList.get(questionNumber).correctAnswer);
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					v.setBackgroundColor(getResources().getColor(
+							R.color.darkerblue));
+					return true;
+				case MotionEvent.ACTION_UP:
+					checkAnswer(questionList.get(questionNumber).answer0,
+							questionList.get(questionNumber).correctAnswer);
+					v.setBackgroundColor(getResources().getColor(
+							R.color.darkblue));
+					return true;
+				}
+				return false;
 			}
 		});
 
-		mRadio1.setOnClickListener(new OnClickListener() {
+		mAnswerButton1.setOnTouchListener(new OnTouchListener() {
 			@Override
-			public void onClick(View v) {
-				mRadio1.setChecked(false);
-				checkAnswer(questionList.get(questionNumber).answer1,
-						questionList.get(questionNumber).correctAnswer);
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					v.setBackgroundColor(getResources().getColor(
+							R.color.darkerblue));
+					return true;
+				case MotionEvent.ACTION_UP:
+					checkAnswer(questionList.get(questionNumber).answer1,
+							questionList.get(questionNumber).correctAnswer);
+					v.setBackgroundColor(getResources().getColor(
+							R.color.darkblue));
+					return true;
+				}
+				return false;
 			}
 		});
 
-		mRadio2.setOnClickListener(new OnClickListener() {
+		mAnswerButton2.setOnTouchListener(new OnTouchListener() {
 			@Override
-			public void onClick(View v) {
-				mRadio2.setChecked(false);
-				checkAnswer(questionList.get(questionNumber).answer2,
-						questionList.get(questionNumber).correctAnswer);
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					v.setBackgroundColor(getResources().getColor(
+							R.color.darkerblue));
+					return true;
+				case MotionEvent.ACTION_UP:
+					checkAnswer(questionList.get(questionNumber).answer2,
+							questionList.get(questionNumber).correctAnswer);
+					v.setBackgroundColor(getResources().getColor(
+							R.color.darkblue));
+					return true;
+				}
+				return false;
 			}
 		});
 
-		mRadio3.setOnClickListener(new OnClickListener() {
+		mAnswerButton3.setOnTouchListener(new OnTouchListener() {
 			@Override
-			public void onClick(View v) {
-				mRadio3.setChecked(false);
-				checkAnswer(questionList.get(questionNumber).answer3,
-						questionList.get(questionNumber).correctAnswer);
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					v.setBackgroundColor(getResources().getColor(
+							R.color.darkerblue));
+					return true;
+				case MotionEvent.ACTION_UP:
+					checkAnswer(questionList.get(questionNumber).answer3,
+							questionList.get(questionNumber).correctAnswer);
+					v.setBackgroundColor(getResources().getColor(
+							R.color.darkblue));
+					return true;
+				}
+				return false;
 			}
 		});
 	}
@@ -229,9 +270,10 @@ public class GameActivity extends ActionBarActivity {
 			}
 		}.start();
 	}
-	
+
 	private void setGameOver() {
-		Toast.makeText(getApplicationContext(), "Game Over!", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "Game Over!",
+				Toast.LENGTH_SHORT).show();
 	}
 
 	private static class QuestionObject {
