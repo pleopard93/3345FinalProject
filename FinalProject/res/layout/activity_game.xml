@@ -13,7 +13,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="62dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <RadioGroup
         android:id="@+id/radioAnswers"
@@ -48,59 +49,112 @@
             android:text="Answer4" />
     </RadioGroup>
 
-    <TextView
-        android:id="@+id/multiplierLabel"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/pointsDisplay"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/radioAnswers"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/multiplier" />
+        android:orientation="horizontal"
+        android:baselineAligned="false" >
 
-    <TextView
-        android:id="@+id/multiplierTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/multiplierLabel"
-        android:layout_below="@id/multiplierLabel"
-        android:layout_marginTop="16dp"
-        android:text="@string/startMultiplier" />
+        <RelativeLayout
+            android:id="@+id/multiplier"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:background="@color/lightblue" >
 
-    <TextView
-        android:id="@+id/scoreLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/multiplierLabel"
-        android:layout_marginLeft="40dp"
-        android:layout_toRightOf="@id/multiplierLabel"
-        android:text="@string/score" />
+            <TextView
+                android:id="@+id/multiplierLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:text="@string/multiplier" />
 
-    <TextView
-        android:id="@+id/scoreTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/multiplierTextView"
-        android:layout_alignLeft="@id/scoreLabel"
-        android:layout_below="@id/scoreLabel"
-        android:layout_marginTop="16dp"
-        android:text="@string/startScore" />
+            <TextView
+                android:id="@+id/multiplierTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/multiplierLabel"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:text="@string/startMultiplier" />
+        </RelativeLayout>
 
-    <TextView
-        android:id="@+id/streakLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/scoreLabel"
-        android:layout_marginLeft="40dp"
-        android:layout_toRightOf="@id/scoreLabel"
-        android:text="@string/streak" />
+        <RelativeLayout
+            android:id="@+id/score"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:background="@color/orange" >
 
-    <TextView
-        android:id="@+id/streakTextView"
-        android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/scoreLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:text="@string/score" />
+
+            <TextView
+                android:id="@+id/scoreTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/scoreLabel"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:text="@string/startScore" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/streak"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:background="@color/green" >
+
+            <TextView
+                android:id="@+id/streakLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:text="@string/streak" />
+            
+            <TextView
+                android:id="@+id/streakTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/streakLabel"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:text="@string/startStreak" />
+
+         
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        	android:id="@+id/timer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:background="@color/lightblue"
+             >
+    <ProgressBar
+        android:id="@+id/timerBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/multiplierTextView"
-        android:layout_alignLeft="@id/streakLabel"
-        android:text="@string/startStreak" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+     />
+    </RelativeLayout>
 
 </RelativeLayout>

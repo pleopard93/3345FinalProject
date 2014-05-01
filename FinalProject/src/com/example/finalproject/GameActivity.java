@@ -16,14 +16,18 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GameActivity extends ActionBarActivity {
 
@@ -37,6 +41,11 @@ public class GameActivity extends ActionBarActivity {
 	private TextView mMultiplierTextView;
 	private TextView mScoreTextView;
 	private TextView mStreakTextView;
+	private ProgressBar mTimerBar;
+	private RelativeLayout mMultiplierLayout;
+	private RelativeLayout mScoreLayout;
+	private RelativeLayout mStreakLayout;
+	private RelativeLayout mTimerLayout;
 	private int questionIndex;
 	private int score;
 	private int multiplier;
@@ -56,7 +65,7 @@ public class GameActivity extends ActionBarActivity {
 		gameDataArray = i.getStringArrayExtra(GAME_KEY);
 
 		Log.d("PBL", gameDataArray[1]);
-		
+
 		mRadio0 = (RadioButton) findViewById(R.id.radioButton0);
 		mRadio1 = (RadioButton) findViewById(R.id.radioButton1);
 		mRadio2 = (RadioButton) findViewById(R.id.radioButton2);
@@ -66,15 +75,23 @@ public class GameActivity extends ActionBarActivity {
 		mMultiplierTextView = (TextView) findViewById(R.id.multiplierTextView);
 		mScoreTextView = (TextView) findViewById(R.id.scoreTextView);
 		mStreakTextView = (TextView) findViewById(R.id.streakTextView);
+		mTimerBar = (ProgressBar) findViewById(R.id.timerBar);
+		
+		mMultiplierLayout = (RelativeLayout) findViewById(R.id.multiplier);
+		mScoreLayout = (RelativeLayout) findViewById(R.id.score);
+		mStreakLayout = (RelativeLayout) findViewById(R.id.streak);
+		mTimerLayout = (RelativeLayout) findViewById(R.id.timer);
 
 		questionIndex = 0;
 		score = 0;
 		multiplier = 1;
 		streak = 0;
-		
-		JSON_LOCATION = "http://192.168.56.1:8888/QuizApp/api/index.php/questions/" + gameDataArray[1];
+
+		JSON_LOCATION = "http://192.168.56.1:8888/QuizApp/api/index.php/questions/"
+				+ gameDataArray[1];
 
 		new HttpGetData().execute(null, null, null);
+
 	}
 
 	@Override
@@ -103,6 +120,8 @@ public class GameActivity extends ActionBarActivity {
 			setTextView(questionIndex);
 			setRadioButtons(questionIndex);
 			questionIndex++;
+		} else {
+			setGameOver();
 		}
 	}
 
@@ -154,6 +173,20 @@ public class GameActivity extends ActionBarActivity {
 		});
 	}
 
+	private void setTimer(final int totalTime) {
+		new CountDownTimer(totalTime, 10) {
+
+			public void onTick(long millisUntilFinished) {
+				float progressPercentage = (((float) millisUntilFinished / (float) totalTime) * 100);
+				mTimerBar.setProgress((int) progressPercentage);
+			}
+
+			public void onFinish() {
+				setGameOver();
+			}
+		}.start();
+	}
+
 	private void checkAnswer(String correctAnswer, String selectedAnswer) {
 		if (selectedAnswer.equals(correctAnswer)) {
 			score += multiplier * 5;
@@ -168,7 +201,40 @@ public class GameActivity extends ActionBarActivity {
 			streak = 0;
 			mMultiplierTextView.setText("x" + Integer.toString(multiplier));
 			mStreakTextView.setText(Integer.toString(streak));
+			setIncorrectAnswer();
+			setNewQuestion();
 		}
+	}
+
+	private void setIncorrectAnswer() {
+		new CountDownTimer(500, 10) {
+
+			public void onTick(long millisUntilFinished) {
+				mMultiplierLayout.setBackgroundColor(getResources().getColor(
+						R.color.red));
+				mScoreLayout.setBackgroundColor(getResources().getColor(
+						R.color.red));
+				mStreakLayout.setBackgroundColor(getResources().getColor(
+						R.color.red));
+				mTimerLayout.setBackgroundColor(getResources().getColor(
+						R.color.red));
+			}
+
+			public void onFinish() {
+				mMultiplierLayout.setBackgroundColor(getResources().getColor(
+						R.color.lightblue));
+				mScoreLayout.setBackgroundColor(getResources().getColor(
+						R.color.orange));
+				mStreakLayout.setBackgroundColor(getResources().getColor(
+						R.color.green));
+				mTimerLayout.setBackgroundColor(getResources().getColor(
+						R.color.lightblue));
+			}
+		}.start();
+	}
+	
+	private void setGameOver() {
+		Toast.makeText(getApplicationContext(), "Game Over!", Toast.LENGTH_SHORT).show();
 	}
 
 	private static class QuestionObject {
@@ -189,7 +255,8 @@ public class GameActivity extends ActionBarActivity {
 	}
 
 	private void parseJSON(InputStream in) throws JSONException {
-		JSONArray questions = new JSONObject(getResponseText(in)).getJSONArray("questions");
+		JSONArray questions = new JSONObject(getResponseText(in))
+				.getJSONArray("questions");
 		questionList = new ArrayList<QuestionObject>();
 		for (int i = 0; i < questions.length(); i++) {
 			// updateProgress(questions.length(), i);
@@ -205,6 +272,7 @@ public class GameActivity extends ActionBarActivity {
 		}
 
 		setNewQuestion();
+		setTimer(15000);
 	}
 
 	private static String getResponseText(InputStream stream) {
@@ -215,12 +283,13 @@ public class GameActivity extends ActionBarActivity {
 	}
 
 	/*
-	 * public void updateProgress(Integer size, Integer index) { 
+	 * public void updateProgress(Integer size, Integer index) {
 	 * mProgress.setProgress((index+1)*(100/size)); }
 	 */
 
 	// Use a background thread to retrieve the JSON objects
-	private class HttpGetData extends AsyncTask<Void, Void, BufferedInputStream> {
+	private class HttpGetData extends
+			AsyncTask<Void, Void, BufferedInputStream> {
 
 		@Override
 		protected BufferedInputStream doInBackground(Void... params) {

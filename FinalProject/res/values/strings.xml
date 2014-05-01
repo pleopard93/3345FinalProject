@@ -13,5 +13,12 @@
     <string name="startScore">0</string>
     <string name="startMultiplier">x1</string>
     <string name="startStreak">0</string>
+    
+    <color name="lightblue">#0085FF</color>
+    <color name="darkblue">#1266B2</color>
+    <color name="green">#9CB200</color>
+    <color name="red">#FF0D00</color>
+    <color name="orange">#FF6C00</color>
+    <color name="white">#FFFFFF</color>
 
 </resources>
