@@ -23,14 +23,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GameActivity extends ActionBarActivity {
+public class GameActivity extends ActionBarActivity implements Animation.AnimationListener {
 
 	String[] gameDataArray;
 	public static final String GAME_KEY = "GameKey";
@@ -42,6 +43,7 @@ public class GameActivity extends ActionBarActivity {
 	private TextView mMultiplierTextView;
 	private TextView mScoreTextView;
 	private TextView mStreakTextView;
+	private TextView mCountdownTextView;
 	private ProgressBar mTimerBar;
 	private RelativeLayout mMultiplierLayout;
 	private RelativeLayout mScoreLayout;
@@ -56,6 +58,8 @@ public class GameActivity extends ActionBarActivity {
 	private static final int READ_TIMEOUT = 10000;
 	private static final int CONNECTION_TIMEOUT = 15000;
 	private static String JSON_LOCATION;
+	
+	Animation fadeout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,23 +78,26 @@ public class GameActivity extends ActionBarActivity {
 		mMultiplierTextView = (TextView) findViewById(R.id.multiplierTextView);
 		mScoreTextView = (TextView) findViewById(R.id.scoreTextView);
 		mStreakTextView = (TextView) findViewById(R.id.streakTextView);
-		mTimerBar = (ProgressBar) findViewById(R.id.timerBar);
+		mCountdownTextView = (TextView) findViewById(R.id.countdownTextView);
 
 		mMultiplierLayout = (RelativeLayout) findViewById(R.id.multiplier);
 		mScoreLayout = (RelativeLayout) findViewById(R.id.score);
 		mStreakLayout = (RelativeLayout) findViewById(R.id.streak);
 		mTimerLayout = (RelativeLayout) findViewById(R.id.timer);
-
+		
+		mTimerBar = (ProgressBar) findViewById(R.id.timerBar);
+		mTimerBar.setProgress(100);
+		
 		questionIndex = 0;
 		score = 0;
 		multiplier = 1;
 		streak = 0;
 
 		JSON_LOCATION = "http://192.168.56.1:8888/QuizApp/api/index.php/questions/"
-				+ gameDataArray[1];
+				+ gameDataArray[0] + "/" + gameDataArray[1];
 
 		new HttpGetData().execute(null, null, null);
-
+		setCountdownTimer();
 	}
 
 	@Override
@@ -112,7 +119,7 @@ public class GameActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
 	private void setNewQuestion() {
 		if (questionIndex < questionList.size()) {
 			setTextView(questionIndex);
@@ -211,6 +218,11 @@ public class GameActivity extends ActionBarActivity {
 		});
 	}
 
+	private void startGame() {
+		setNewQuestion();
+		setCountdownTimer();
+	}
+	
 	private void setTimer(final int totalTime) {
 		new CountDownTimer(totalTime, 10) {
 
@@ -221,6 +233,26 @@ public class GameActivity extends ActionBarActivity {
 
 			public void onFinish() {
 				setGameOver();
+			}
+		}.start();
+	}
+	
+	private void setCountdownTimer() {
+		new CountDownTimer(4000, 100) {
+
+			public void onTick(long millisUntilFinished) {
+				int time = (int) millisUntilFinished/1000;
+				if (time != 0) {
+				mCountdownTextView.setText(Integer.toString(time));
+				} else {
+					mCountdownTextView.setText("Go!");
+				}	
+			}
+
+			public void onFinish() {
+				fadeout= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
+				mCountdownTextView.setAnimation(fadeout);
+				setTimer(15000);
 			}
 		}.start();
 	}
@@ -310,8 +342,7 @@ public class GameActivity extends ActionBarActivity {
 			questionList.add(quest);
 		}
 
-		setNewQuestion();
-		setTimer(15000);
+		startGame();
 	}
 
 	private static String getResponseText(InputStream stream) {
@@ -320,6 +351,11 @@ public class GameActivity extends ActionBarActivity {
 		scanner.close();
 		return result;
 	}
+	
+	@Override
+	public void onAnimationEnd(Animation animation) { }
+	public void onAnimationRepeat(Animation animation) { }
+	public void onAnimationStart(Animation animation) { }
 
 	/*
 	 * public void updateProgress(Integer size, Integer index) {

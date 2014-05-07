@@ -107,7 +107,7 @@ public class MainActivity extends ActionBarActivity {
 
 		mDifficultySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				gameDataArray[0] = difficultiesArray[pos];
+				gameDataArray[1] = difficultiesArray[pos];
 			}
 
 			public void onNothingSelected(AdapterView<?> parent) {
@@ -116,7 +116,7 @@ public class MainActivity extends ActionBarActivity {
 		
 		mGameTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				gameDataArray[1] = categoryList.get(pos);
+				gameDataArray[0] = categoryList.get(pos);
 			}
 
 			public void onNothingSelected(AdapterView<?> parent) {
