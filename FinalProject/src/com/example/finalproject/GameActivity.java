@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Timer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +36,7 @@ public class GameActivity extends ActionBarActivity implements Animation.Animati
 
 	String[] gameDataArray;
 	public static final String GAME_KEY = "GameKey";
+	public static final String GAME_OVER_KEY = "GameOverKey";
 	private TextView mAnswerButton0;
 	private TextView mAnswerButton1;
 	private TextView mAnswerButton2;
@@ -118,6 +120,12 @@ public class GameActivity extends ActionBarActivity implements Animation.Animati
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+    private void launchGameOver() {
+		Intent i = new Intent(this, GameOverActivity.class);
+		i.putExtra(GameActivity.GAME_OVER_KEY, 0);
+		startActivityForResult(i, 0);
 	}
 	
 	private void setNewQuestion() {
@@ -233,6 +241,7 @@ public class GameActivity extends ActionBarActivity implements Animation.Animati
 
 			public void onFinish() {
 				setGameOver();
+				launchGameOver();
 			}
 		}.start();
 	}

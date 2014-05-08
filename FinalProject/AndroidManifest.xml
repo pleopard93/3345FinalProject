@@ -26,6 +26,10 @@
             android:name="com.example.finalproject.GameActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="com.example.finalproject.GameOverActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>
