@@ -57,7 +57,7 @@ public class MainActivity extends ActionBarActivity {
      	
      	gameDataArray = new String[2];
      	
-     	JSON_LOCATION = "http://192.168.56.1:8888/QuizApp/api/index.php/categories";
+     	JSON_LOCATION = "http://ec2-54-187-209-22.us-west-2.compute.amazonaws.com/api/index.php/categories";
      	new HttpGetData().execute(null, null, null);
      	
      	setGoButton();

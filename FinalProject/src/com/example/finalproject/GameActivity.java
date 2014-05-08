@@ -103,7 +103,7 @@ public class GameActivity extends ActionBarActivity implements Animation.Animati
 		// Default max streak
 		gameScoreArray[1] = 0;
 
-		JSON_LOCATION = "http://192.168.56.1:8888/QuizApp/api/index.php/questions/"
+		JSON_LOCATION = "http://ec2-54-187-209-22.us-west-2.compute.amazonaws.com/api/index.php/questions/"
 				+ gameDataArray[0] + "/" + gameDataArray[1];
 
 		new HttpGetData().execute(null, null, null);
