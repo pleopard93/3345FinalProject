@@ -20,6 +20,7 @@
     <string name="answer3">Answer 4</string>
     <string name="questionPlaceholder">Get Ready!</string>
     <string name="gameSummary">Game Summary</string>
+    <string name="newGame">New Game</string>
     
     <color name="lightblue">#6766CC</color>
     <color name="darkblue">#0C4EA5</color>

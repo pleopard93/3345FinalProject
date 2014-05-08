@@ -3,15 +3,19 @@ package com.example.finalproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.TextView;
 
 public class GameOverActivity extends ActionBarActivity {
 	
 	private TextView scoreTextView;
 	private TextView streakTextView;
+	private TextView newGameTextView;
 	
 	int gameScoreArray[];
 	public static final String GAME_OVER_KEY = "GameOverKey";
@@ -26,9 +30,27 @@ public class GameOverActivity extends ActionBarActivity {
 
 		scoreTextView = (TextView) findViewById(R.id.scoreTextView);
 		streakTextView = (TextView) findViewById(R.id.streakTextView);
+		newGameTextView = (TextView) findViewById(R.id.newGameTextView);
 		
 		scoreTextView.setText("Score: " + Integer.toString(gameScoreArray[0]));
 		streakTextView.setText("Max streak: " + Integer.toString(gameScoreArray[1]));
+		
+		// Add the click listener to the new game icon
+		newGameTextView.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					v.setBackgroundColor(getResources().getColor(
+							R.color.darkerblue));
+					return true;
+				case MotionEvent.ACTION_UP:
+					goToHomeScreen();
+					return true;
+				}
+				return false;
+			}
+		});
 	}
 
 	@Override
@@ -49,6 +71,12 @@ public class GameOverActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	private void goToHomeScreen() {
+		// Send the user back to the home screen
+		Intent i = new Intent(this, MainActivity.class);
+		startActivityForResult(i, 0);
 	}
 	
 	@Override
