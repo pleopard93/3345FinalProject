@@ -17,76 +17,94 @@
         android:scaleType="fitXY"
         android:src="@drawable/quizzie_logo" />
 
-    <TextView
-        android:id="@+id/difficultyString"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:text="@string/difficulty"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <View
-        android:id="@+id/difficultyRule"
+        android:id="@+id/logoRule"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/difficultyString"
-        android:layout_margin="3dp"
+        android:layout_below="@id/logoImageView"
         android:background="@android:color/darker_gray" />
 
-    <Spinner
-        android:id="@+id/difficultySpinner"
-        android:layout_width="200dp"
+    <RelativeLayout
+        android:id="@+id/difficultyLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/difficultyRule"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@id/logoRule"
+        android:background="@color/orange" >
 
-    <TextView
-        android:id="@+id/gameTypeString"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/difficultySpinner"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:text="@string/gameType"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/difficultyString"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/difficulty"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
+
+        <Spinner
+            android:id="@+id/difficultySpinner"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/difficultyString"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
     <View
-        android:id="@+id/gameTypeRule"
+        android:id="@+id/separatorRule"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/gameTypeString"
-        android:layout_margin="3dp"
+        android:layout_below="@id/difficultyLayout"
         android:background="@android:color/darker_gray" />
 
-    <Spinner
-        android:id="@+id/gameTypeSpinner"
-        android:layout_width="200dp"
+    <RelativeLayout
+        android:id="@+id/gameTypeLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/gameTypeRule"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@id/separatorRule"
+        android:background="@color/green" >
+
+        <TextView
+            android:id="@+id/gameTypeString"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/gameType"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
+
+        <Spinner
+            android:id="@+id/gameTypeSpinner"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/gameTypeString"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/goButton"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/gameTypeSpinner"
+        android:layout_below="@+id/gameTypeLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:background="@color/lightblue"
         android:gravity="center"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
         android:text="@string/go"
         android:textColor="@color/white" />
-    
-        <TextView
+
+    <TextView
         android:id="@+id/legalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:paddingBottom="10dp"
         android:text="@string/legalText" />
