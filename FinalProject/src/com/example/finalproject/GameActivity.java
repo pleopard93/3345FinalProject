@@ -29,13 +29,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class GameActivity extends ActionBarActivity implements Animation.AnimationListener {
 
 	String[] gameDataArray;
+	int[] gameScoreArray;
 	public static final String GAME_KEY = "GameKey";
-	public static final String GAME_OVER_KEY = "GameOverKey";
 	private TextView mAnswerButton0;
 	private TextView mAnswerButton1;
 	private TextView mAnswerButton2;
@@ -55,11 +54,13 @@ public class GameActivity extends ActionBarActivity implements Animation.Animati
 	private int multiplier;
 	private int streak;
 	private ArrayList<QuestionObject> questionList;
+	private CountDownTimer gameTimer;
 
 	private static final int READ_TIMEOUT = 10000;
 	private static final int CONNECTION_TIMEOUT = 15000;
 	private static String JSON_LOCATION;
 	
+	Animation fadein;
 	Animation fadeout;
 
 	@Override
@@ -93,12 +94,19 @@ public class GameActivity extends ActionBarActivity implements Animation.Animati
 		score = 0;
 		multiplier = 1;
 		streak = 0;
+		
+		gameScoreArray = new int[2];
+		
+		// Default score
+		gameScoreArray[0] = 0;
+		
+		// Default max streak
+		gameScoreArray[1] = 0;
 
 		JSON_LOCATION = "http://192.168.56.1:8888/QuizApp/api/index.php/questions/"
 				+ gameDataArray[0] + "/" + gameDataArray[1];
 
 		new HttpGetData().execute(null, null, null);
-		setCountdownTimer();
 	}
 
 	@Override
@@ -121,19 +129,26 @@ public class GameActivity extends ActionBarActivity implements Animation.Animati
 		return super.onOptionsItemSelected(item);
 	}
 	
-    private void launchGameOver() {
-		Intent i = new Intent(this, GameOverActivity.class);
-		i.putExtra(GameActivity.GAME_OVER_KEY, 0);
-		startActivityForResult(i, 0);
-	}
 	
+	
+	/******************/
+	/** QUIZ METHODS **/
+	/******************/
 	private void setNewQuestion() {
+		checkMaxStreak();
+		
 		if (questionIndex < questionList.size()) {
 			setTextView(questionIndex);
 			setAnswerButtons(questionIndex);
 			questionIndex++;
 		} else {
 			setGameOver();
+		}
+	}
+	
+	private void checkMaxStreak() {
+		if (streak > gameScoreArray[1]) {
+			gameScoreArray[1] = streak;
 		}
 	}
 
@@ -224,48 +239,11 @@ public class GameActivity extends ActionBarActivity implements Animation.Animati
 			}
 		});
 	}
-
-	private void startGame() {
-		setNewQuestion();
-		setCountdownTimer();
-	}
-	
-	private void setTimer(final int totalTime) {
-		new CountDownTimer(totalTime, 10) {
-
-			public void onTick(long millisUntilFinished) {
-				float progressPercentage = (((float) millisUntilFinished / (float) totalTime) * 100);
-				mTimerBar.setProgress((int) progressPercentage);
-			}
-
-			public void onFinish() {
-				setGameOver();
-				launchGameOver();
-			}
-		}.start();
-	}
-	
-	private void setCountdownTimer() {
-		new CountDownTimer(4000, 100) {
-
-			public void onTick(long millisUntilFinished) {
-				int time = (int) millisUntilFinished/1000;
-				if (time != 0) {
-				mCountdownTextView.setText(Integer.toString(time));
-				} else {
-					mCountdownTextView.setText("Go!");
-				}	
-			}
-
-			public void onFinish() {
-				fadeout= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
-				mCountdownTextView.setAnimation(fadeout);
-				setTimer(15000);
-			}
-		}.start();
-	}
-
+    
 	private void checkAnswer(String correctAnswer, String selectedAnswer) {
+		// Check to see if the answer was correct
+		// If true, increment score and stats
+		// Else, reset stats
 		if (selectedAnswer.equals(correctAnswer)) {
 			score += multiplier * 5;
 			streak++;
@@ -273,18 +251,19 @@ public class GameActivity extends ActionBarActivity implements Animation.Animati
 			mScoreTextView.setText(Integer.toString(score));
 			mMultiplierTextView.setText("x" + Integer.toString(multiplier));
 			mStreakTextView.setText(Integer.toString(streak));
-			setNewQuestion();
 		} else {
 			multiplier = 1;
 			streak = 0;
 			mMultiplierTextView.setText("x" + Integer.toString(multiplier));
 			mStreakTextView.setText(Integer.toString(streak));
 			setIncorrectAnswer();
-			setNewQuestion();
 		}
+		
+		setNewQuestion();
 	}
 
 	private void setIncorrectAnswer() {
+		// Flash the display red to alert the user that the answer was incorrect
 		new CountDownTimer(500, 10) {
 
 			public void onTick(long millisUntilFinished) {
@@ -310,12 +289,90 @@ public class GameActivity extends ActionBarActivity implements Animation.Animati
 			}
 		}.start();
 	}
-
-	private void setGameOver() {
-		Toast.makeText(getApplicationContext(), "Game Over!",
-				Toast.LENGTH_SHORT).show();
+	
+	
+	
+	/****************/
+	/** GAME START **/
+	/****************/
+	private void startGame() {
+		setCountdownTimer();
 	}
+	
+	// Sets the countdown timer of the overlay
+	private void setCountdownTimer() {
+		new CountDownTimer(4000, 100) {
 
+			public void onTick(long millisUntilFinished) {
+				int time = (int) millisUntilFinished/1000;
+				if (time != 0) {
+				mCountdownTextView.setText(Integer.toString(time));
+				} else {
+					mCountdownTextView.setText("Go!");
+				}	
+			}
+
+			public void onFinish() {
+				fadeout= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
+				mCountdownTextView.setAnimation(fadeout);
+				setTimer(15000);
+				setNewQuestion();
+			}
+		}.start();
+	}
+	
+	// Sets the game timer bar
+	private void setTimer(final int totalTime) {
+		gameTimer = new CountDownTimer(totalTime, 10) {
+
+			public void onTick(long millisUntilFinished) {
+				float progressPercentage = (((float) millisUntilFinished / (float) totalTime) * 100);
+				mTimerBar.setProgress((int) progressPercentage);
+			}
+
+			public void onFinish() {
+				setGameOver();
+			}
+		}.start();
+	}
+	
+	
+	
+	/***************/
+	/** GAME OVER **/
+	/***************/
+	private void setGameOver() {
+		
+		gameTimer.cancel();
+		
+		gameScoreArray[0] = score;
+		
+		fadein= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
+		mCountdownTextView.setAnimation(fadein);
+		
+		new CountDownTimer(1500, 100) {
+
+			public void onTick(long millisUntilFinished) {
+				mCountdownTextView.setText("Game Over!");
+			}
+
+			public void onFinish() {
+				launchGameOverActivity();
+			}
+		}.start();
+	}
+	
+    private void launchGameOverActivity() {
+		Intent i = new Intent(this, GameOverActivity.class);
+		i.putExtra(GameOverActivity.GAME_OVER_KEY, gameScoreArray);
+		startActivityForResult(i, 0);
+	}
+    
+	
+	
+	/*********************/
+	/** QUESTION OBJECT **/
+	/*********************/
 	private static class QuestionObject {
 		String question;
 		String answer0;
@@ -333,6 +390,11 @@ public class GameActivity extends ActionBarActivity implements Animation.Animati
 		}
 	}
 
+	
+	
+	/******************/
+	/** HTTPRequests **/
+	/******************/
 	private void parseJSON(InputStream in) throws JSONException {
 		JSONArray questions = new JSONObject(getResponseText(in))
 				.getJSONArray("questions");
@@ -360,11 +422,6 @@ public class GameActivity extends ActionBarActivity implements Animation.Animati
 		return result;
 	}
 	
-	@Override
-	public void onAnimationEnd(Animation animation) { }
-	public void onAnimationRepeat(Animation animation) { }
-	public void onAnimationStart(Animation animation) { }
-
 	/*
 	 * public void updateProgress(Integer size, Integer index) {
 	 * mProgress.setProgress((index+1)*(100/size)); }
@@ -411,4 +468,13 @@ public class GameActivity extends ActionBarActivity implements Animation.Animati
 			}
 		}
 	}
+	
+	
+	
+	/***********************/
+	/** ANIMATION METHODS **/
+	/***********************/
+	public void onAnimationEnd(Animation animation) { }
+	public void onAnimationRepeat(Animation animation) { }
+	public void onAnimationStart(Animation animation) { }
 }
