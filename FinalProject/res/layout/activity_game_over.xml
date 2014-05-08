@@ -6,4 +6,70 @@
     tools:context="com.example.finalproject.MainActivity"
     tools:ignore="MergeRootFrame" >
 
+        <ImageView
+        android:id="@+id/logoImageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:padding="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/quizzie_logo" />
+    
+            <TextView
+            android:id="@+id/gameSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:layout_below="@id/logoImageView1"
+            android:text="@string/gameSummary"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+                <TextView
+                android:id="@+id/scoreTextView"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/gameSummary"
+                android:background="@color/darkblue"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:text="@string/answer2"
+                android:textColor="@color/white" />
+                
+                <View
+        android:id="@+id/scoreRule"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/scoreTextView"
+        android:layout_margin="15dp"
+        android:background="@android:color/darker_gray" />
+                
+                <TextView
+                android:id="@+id/streakTextView"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:background="@color/darkblue"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:layout_below="@id/scoreRule"
+                android:text="@string/answer2"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white" />
+                
+                <View
+        android:id="@+id/separatorRule"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/streakTextView"
+        android:layout_margin="3dp"
+        android:background="@android:color/darker_gray" />
+                
+    
     </RelativeLayout>

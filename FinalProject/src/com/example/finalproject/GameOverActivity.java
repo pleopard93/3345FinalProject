@@ -6,8 +6,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class GameOverActivity extends ActionBarActivity {
+	
+	private TextView scoreTextView;
+	private TextView streakTextView;
 	
 	int gameScoreArray[];
 	public static final String GAME_OVER_KEY = "GameOverKey";
@@ -19,8 +23,12 @@ public class GameOverActivity extends ActionBarActivity {
 		
 		Intent i = getIntent();
 		gameScoreArray = i.getIntArrayExtra(GAME_OVER_KEY);
-		Log.d("PBL", Integer.toString(gameScoreArray[0]));
-		Log.d("PBLstreak", Integer.toString(gameScoreArray[1]));
+
+		scoreTextView = (TextView) findViewById(R.id.scoreTextView);
+		streakTextView = (TextView) findViewById(R.id.streakTextView);
+		
+		scoreTextView.setText("Score: " + Integer.toString(gameScoreArray[0]));
+		streakTextView.setText("Max streak: " + Integer.toString(gameScoreArray[1]));
 	}
 
 	@Override
