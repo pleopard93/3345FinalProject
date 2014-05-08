@@ -105,7 +105,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="TextView"
+            android:text="@string/questionPlaceholder"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <LinearLayout
@@ -125,7 +125,7 @@
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="Answer1"
+                android:text="@string/answer0"
                 android:textColor="@color/white" />
 
             <TextView
@@ -137,7 +137,7 @@
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="Answer2"
+                android:text="@string/answer1"
                 android:textColor="@color/white" />
 
             <TextView
@@ -149,7 +149,7 @@
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="Answer 3"
+                android:text="@string/answer2"
                 android:textColor="@color/white" />
 
             <TextView
@@ -160,7 +160,7 @@
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="Answer4"
+                android:text="@string/answer3"
                 android:textColor="@color/white" />
         </LinearLayout>
 
