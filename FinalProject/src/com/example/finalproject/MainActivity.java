@@ -12,7 +12,6 @@ import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,11 +21,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -36,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
 
 	private Spinner mDifficultySpinner;
 	private Spinner mGameTypeSpinner;
-	private Button mGoButton;
+	private TextView mGoButton;
 	
 	private static final int READ_TIMEOUT = 10000;
 	private static final int CONNECTION_TIMEOUT = 15000;
@@ -55,7 +53,7 @@ public class MainActivity extends ActionBarActivity {
      	mGameTypeSpinner = (Spinner) findViewById(R.id.gameTypeSpinner);
      	
      	// Button to launch game
-     	mGoButton = (Button) findViewById(R.id.goButton);
+     	mGoButton = (TextView) findViewById(R.id.goButton);
      	
      	gameDataArray = new String[2];
      	
