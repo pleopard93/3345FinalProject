@@ -8,7 +8,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Timer;
 
 import org.json.JSONArray;
 import org.json.JSONException;

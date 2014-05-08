@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -32,4 +33,11 @@ public class GameOverActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	@Override
+    public void onBackPressed() {
+		// Send the user back to the home screen instead of
+		// back to the game screen
+		this.startActivity(new Intent(GameOverActivity.this, MainActivity.class));
+    }
 }

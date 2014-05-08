@@ -84,6 +84,13 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
     
+    @Override
+    public void onBackPressed() {
+    	// Do nothing so that the user cannot return to the GameOver screen.
+    	// GameOver activity sends the user back to MainActivity, so this
+    	// prevents switching back and forth
+    }
+    
     private void launchGame() {
 		Intent i = new Intent(this, GameActivity.class);
 		i.putExtra(GameActivity.GAME_KEY, gameDataArray);
